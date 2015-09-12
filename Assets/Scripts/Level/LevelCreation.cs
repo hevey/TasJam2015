@@ -20,9 +20,9 @@ public class LevelCreation : MonoBehaviour
         texture.Apply();
         Sprite spr = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(1f, 1f), 40);
         GameObject sprGameObj = new GameObject();
-        for (int iy = 0; iy < 10; iy++)
+        for (int iy = 0; iy < 100; iy++)
         {
-            for (int ix = 0; ix < 10; ix++)
+            for (int ix = 0; ix < 100; ix++)
             {
 
                 sprGameObj.name = "Floor";

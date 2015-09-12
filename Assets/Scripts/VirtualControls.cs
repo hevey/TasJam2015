@@ -9,9 +9,11 @@ public class VirtualControls : MonoBehaviour {
 	private Vector2 leftTouchPosition;
 
 	public float speed = 10.0f;
-	public float slideMagnitudeX = 0.0f;
-	public float slideMagnitudeY = 0.0f;
-	// Use this for initialization
+	public float moveMagnitudeX = 0.0f;
+	public float moveMagnitudeY = 0.0f;
+
+	public float rotateMagnitude = 0.0f;
+
 	void Start () {
 	
 	}
@@ -29,13 +31,14 @@ public class VirtualControls : MonoBehaviour {
 					
 					rightTouchId = touch.fingerId;
 					rightTouchPosition=touch.position;
+					rotateMagnitude = 0;
 				}
 				if(touch.position.x <= ScreenPercentageX(50)){
 					
 					leftTouchId = touch.fingerId;
 					leftTouchPosition=touch.position;
-					slideMagnitudeX = 0;
-					slideMagnitudeY = 0;
+					moveMagnitudeX = 0;
+					moveMagnitudeY = 0;
 				}
 				
 				
@@ -44,18 +47,21 @@ public class VirtualControls : MonoBehaviour {
 			{
 				if(touch.fingerId == leftTouchId)
 				{
-					Debug.Log("Left Moved");
 					Vector2 move = touch.position - leftTouchPosition;
-					slideMagnitudeX = move.x / Screen.width * speed;
+					moveMagnitudeX = move.x / Screen.width * speed;
 					
 					// slide vert
-					slideMagnitudeY = move.y / Screen.height * speed;
-					GetComponent<Rigidbody2D> ().velocity = new Vector2(slideMagnitudeX,slideMagnitudeY);
+					moveMagnitudeY = move.y / Screen.height * speed;
+					GetComponent<Rigidbody2D> ().velocity = new Vector2(moveMagnitudeX,moveMagnitudeY);
 
 				}
 				if(touch.fingerId == rightTouchId)
 				{
-					Debug.Log("Right Moved");
+					Vector2 move = touch.position - rightTouchPosition;
+					rotateMagnitude = move.x / Screen.width * speed;
+					float h = 0.5f * touch.deltaPosition.y ;
+					transform.Rotate( 0, 0, h, Space.World );
+					transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z);
 				}
 			}
 			if(touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
@@ -63,12 +69,15 @@ public class VirtualControls : MonoBehaviour {
 				if(touch.fingerId == rightTouchId)
 				{
 					rightTouchId = -100;
+					rotateMagnitude = 0;
+
+
 				}
 				if(touch.fingerId == leftTouchId)
 				{
 					leftTouchId = -100;
-					slideMagnitudeX = 0;
-					slideMagnitudeY = 0;
+					moveMagnitudeX = 0;
+					moveMagnitudeY = 0;
 					GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 				}
 				

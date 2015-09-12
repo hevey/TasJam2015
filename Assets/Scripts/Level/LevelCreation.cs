@@ -44,6 +44,8 @@ public class LevelCreation : MonoBehaviour
 							sprGameObj.AddComponent<SpriteRenderer>();
 							SpriteRenderer sprRenderer = sprGameObj.GetComponent<SpriteRenderer>();
 							sprRenderer.sprite = spr;
+							if(aa > 0)
+								sprGameObj.AddComponent<PolygonCollider2D>();
 
 							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum-4 * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
 							sprGameObj.transform.position = temp;

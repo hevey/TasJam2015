@@ -10,7 +10,7 @@ public class LevelCreation : MonoBehaviour
 	public Color WallColour = Color.white;
 	public Color FloorColour = Color.clear;
     private WallCreation wc = new WallCreation();
-
+	Vector3[] points = null;
     // Use this for initialization
     void Start()
     {
@@ -48,12 +48,31 @@ public class LevelCreation : MonoBehaviour
 								sprGameObj.AddComponent<PolygonCollider2D>();
 
 							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum-4 * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
+
 							sprGameObj.transform.position = temp;
 							current++;
                         }
                     }
                 }
             }
+			XmlNodeList pointslist = xmlDoc.GetElementsByTagName("points");
+			foreach (XmlNode rowitem in pointslist) // levels itens nodes.
+			{
+				if (rowitem.Name == "row")
+				{
+					var str = rowitem.InnerText.Split(',');
+					var rowNum = Int32.Parse(rowitem.Attributes["num"].Value);
+					var current = 0;
+					foreach (var a in str)
+					{
+					
+						int aa = Int32.Parse(a);
+						current++;
+
+
+					}
+				}
+			}
         }
     }
 

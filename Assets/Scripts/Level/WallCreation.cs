@@ -1,17 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 
-public class WallCreation : MonoBehaviour {
+public class WallCreation {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public Texture2D createEdgeTop(Color wall, Color floor)
     {
@@ -43,7 +35,7 @@ public class WallCreation : MonoBehaviour {
         {
             for (int j = 0; j < texture.height; j++)
             {
-                if (j < (texture.height = texture.height / 10))
+                if (j < (texture.height / 10))
                 {
                     texture.SetPixel(i, j, wall);
                 }

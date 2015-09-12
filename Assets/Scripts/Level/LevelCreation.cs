@@ -14,8 +14,8 @@ public class LevelCreation : MonoBehaviour
     void Start()
     {
         Camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        var texture = wc.createEdgeTop(Color.green, Color.clear);
-        Texture2D edgeBottom = wc.createEdgeBottom(Color.green, Color.clear);
+        //var texture = wc.createEdgeTop(Color.green, Color.clear);
+        var texture = wc.createEdgeBottom(Color.green, Color.clear);
 
         texture.Apply();
         Sprite spr = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(1f, 1f), 40);

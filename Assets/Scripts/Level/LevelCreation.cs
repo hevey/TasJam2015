@@ -29,44 +29,64 @@ public class LevelCreation : MonoBehaviour
 		List<Point> gend = new List<Point> ();
 		List<Point> bend = new List<Point> ();
 
+		/*int ran = 0;
+
+		if (ran == 0) {
+		
+		} else {
+		}*/
+
         if (asset != null)
         {
             XmlDocument xmlDoc = new XmlDocument(); // xmlDoc is the new xml document.
             xmlDoc.LoadXml(asset.text); // load the file.
             XmlNodeList rowslist = xmlDoc.GetElementsByTagName("rows"); // array of the level nodes.
 			XmlNodeList pointslist = xmlDoc.GetElementsByTagName("points");
+			XmlNodeList waypointslist = xmlDoc.GetElementsByTagName("waypoints");
+			foreach (XmlNode waypointinfo in waypointslist) 
+			{
+				XmlNodeList pointcontent = waypointinfo.ChildNodes;
+				foreach (XmlNode pointitem in pointcontent) // levels itens nodes.
+				{
+					var str = pointitem.InnerText.Split(',');
+					foreach (var a in str)
+					{
+						var inner = a.Split(':');
+						pway pw = (pway) ScriptableObject.CreateInstance("pway");
 
+
+					}
+				}
+			}
 			foreach (XmlNode pointinfo in pointslist)
 			{
 				XmlNodeList pointcontent = pointinfo.ChildNodes;
 				foreach (XmlNode pointitem in pointcontent) // levels itens nodes.
 				{
-
-						var str = pointitem.InnerText.Split(',');
-						foreach (var a in str)
+					var str = pointitem.InnerText.Split(',');
+					foreach (var a in str)
+					{
+						var po = a.Split('-');							
+						var p = (Point) ScriptableObject.CreateInstance("Point");
+						p.row = Int32.Parse(po[0]);
+						p.pos = Int32.Parse(po[1]);
+						if (pointitem.Name == "start")
 						{
-							var po = a.Split('-');							
-							var p = (Point) ScriptableObject.CreateInstance("Point");
-							p.row = Int32.Parse(po[0]);
-							p.pos = Int32.Parse(po[1]);
-							if (pointitem.Name == "start")
-							{
-								start.Add(p);
-							}
-							else if (pointitem.Name == "gend")
-							{
-								gend.Add(p);
-								
-							}
-							else if (pointitem.Name == "bend")
-							{
-								bend.Add (p);
-								
-							}
+							start.Add(p);
 						}
-
+						else if (pointitem.Name == "gend")
+						{
+							gend.Add(p);
+							
+						}
+						else if (pointitem.Name == "bend")
+						{
+							bend.Add (p);
+							
+						}
+					}
 				}
-			
+				
 			}
 
             foreach (XmlNode rowinfo in rowslist)

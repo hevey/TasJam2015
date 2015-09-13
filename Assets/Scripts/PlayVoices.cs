@@ -2,56 +2,117 @@
 using System.Collections;
 
 public class PlayVoices : MonoBehaviour {
-    
-    string goodGoLeftPath = "";
-    string goodGoRightPath = "";
-    string goodKeepGoingPath = "";
-    string goodStopStopStopPath = "";
 
-    private void PlayFromPath(string path)
+    public AudioClip badGoLeft;
+    public AudioClip badGoRight;
+    public AudioClip badKeepGoing;
+    public AudioClip badStopStopStop;
+    public AudioClip badNoNoNo;
+    public AudioClip badHaha;
+    public AudioClip badGoBack;
+    public AudioClip badComeThisWay;
+    public AudioClip goodGoLeft;
+    public AudioClip goodGoRight;
+    public AudioClip goodKeepGoing;
+    public AudioClip goodStopStopStop;
+    public AudioClip goodNoNoNo;
+    public AudioClip goodHaha;
+    public AudioClip goodGoBack;
+    public AudioClip goodComeThisWay;
+
+    private void PlayFromPath(AudioClip clip)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = Resources.Load(path) as AudioClip;
+        audioSource.clip = clip;
         audioSource.Play();
     }
 
+    public void PlayBadGoLeft()
+    {
+       PlayFromPath(badGoLeft);
+    }
+
+    public void PlayBadGoRight()
+    {
+        PlayFromPath(badGoRight);
+    }
+
+    public void PlayBadKeepGoing()
+    {
+        PlayFromPath(badKeepGoing);
+    }
+
+    public void PlayBadStopStopStop()
+    {
+        PlayFromPath(badStopStopStop);
+    }
+
+    public void PlayBadNoNoNo()
+    {
+        PlayFromPath(badNoNoNo);
+    }
+
+    public void PlayBadHaha()
+    {
+        PlayFromPath(badHaha);
+    }
+
+    public void PlayBadGoBack()
+    {
+        PlayFromPath(badGoBack);
+    }
+
+    public void PlayBadComeThisWay()
+    {
+        PlayFromPath(badComeThisWay);
+    }
+    
     public void PlayGoodGoLeft()
     {
-        PlayFromPath(goodGoLeftPath);
+        GameObject.FindGameObjectWithTag("gvoice");
+        PlayFromPath(goodGoLeft);
     }
 
     public void PlayGoodGoRight()
     {
-        PlayFromPath(goodGoRightPath);
+        PlayFromPath(goodGoRight);
     }
 
     public void PlayGoodKeepGoing()
     {
-        PlayFromPath(goodKeepGoingPath);
+        PlayFromPath(goodKeepGoing);
     }
 
     public void PlayGoodStopStopStop()
     {
-        PlayFromPath(goodStopStopStopPath);
+        PlayFromPath(goodStopStopStop);
     }
 
+    public void PlayGoodNoNoNo()
+    {
+        PlayFromPath(goodNoNoNo);
+    }
 
-    //    Go Left
-    //Go Right
-    //KeepGoing
-    //STOPSTOPSTOP
-    //You are almost there
-    //NO NO NO Don’t listen to him
-    //HA HA HA HA HA HA
-    //Go Back
-    //Come This way
+    public void PlayGoodHaha()
+    {
+        PlayFromPath(goodHaha);
+    }
+
+    public void PlayGoodGoBack()
+    {
+        PlayFromPath(goodGoBack);
+    }
+
+    public void PlayGoodComeThisWay()
+    {
+        PlayFromPath(goodComeThisWay);
+    }
+    
     // Use this for initialization
     void Start () {
-        //  Load voices into memory
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }

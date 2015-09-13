@@ -62,6 +62,7 @@ public class LevelCreation : MonoBehaviour
 						pw.nametouse = a;
 						pwaylistman.Add(pw);
 					}
+					Debug.Log (pwaylistman.Count);
 				}
 			}
 			foreach (XmlNode pointinfo in pointslist)

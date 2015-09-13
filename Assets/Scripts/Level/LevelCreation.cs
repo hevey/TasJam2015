@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Xml;
 using UnityEngine;
 
@@ -10,20 +11,61 @@ public class LevelCreation : MonoBehaviour
 	public Color WallColour = Color.white;
 	public Color FloorColour = Color.clear;
     private WallCreation wc = new WallCreation();
-	Vector3[] points = null;
+	public bool startReady = false;
+	//List<Vector3> startPoints = new List<Vector3>();
+	//List<Vector3> goodEndPoints = new List<Vector3>();
+	//List<Vector3> badEndPoints = new List<Vector3>();
     // Use this for initialization
+	public Dictionary<string,Vector3> points = new Dictionary<string,Vector3>();
     void Start()
     {
         Camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
 		var textures = createTextures ();
        	TextAsset asset = (TextAsset)Resources.Load("test");
         List<GameObject> block = new List<GameObject>();
+		List<Point> start = new List<Point> ();
+		List<Point> gend = new List<Point> ();
+		List<Point> bend = new List<Point> ();
 
         if (asset != null)
         {
             XmlDocument xmlDoc = new XmlDocument(); // xmlDoc is the new xml document.
             xmlDoc.LoadXml(asset.text); // load the file.
             XmlNodeList rowslist = xmlDoc.GetElementsByTagName("rows"); // array of the level nodes.
+			XmlNodeList pointslist = xmlDoc.GetElementsByTagName("points");
+
+			foreach (XmlNode pointinfo in pointslist)
+			{
+				XmlNodeList pointcontent = pointinfo.ChildNodes;
+				foreach (XmlNode pointitem in pointcontent) // levels itens nodes.
+				{
+
+						var str = pointitem.InnerText.Split(',');
+						foreach (var a in str)
+						{
+							var po = a.Split('-');							
+							var p = (Point) ScriptableObject.CreateInstance("Point");
+							p.row = Int32.Parse(po[0]);
+							p.pos = Int32.Parse(po[1]);
+							if (pointitem.Name == "start")
+							{
+								start.Add(p);
+							}
+							else if (pointitem.Name == "gend")
+							{
+								gend.Add(p);
+								
+							}
+							else if (pointitem.Name == "bend")
+							{
+								bend.Add (p);
+								
+							}
+						}
+
+				}
+			
+			}
 
             foreach (XmlNode rowinfo in rowslist)
             {
@@ -45,9 +87,32 @@ public class LevelCreation : MonoBehaviour
 							SpriteRenderer sprRenderer = sprGameObj.GetComponent<SpriteRenderer>();
 							sprRenderer.sprite = spr;
 							if(aa > 0)
+							{
 								sprGameObj.AddComponent<PolygonCollider2D>();
-
+							}
 							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum-4 * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
+							
+							foreach (var st in start)
+							{
+								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("start"))
+								{
+									points.Add("start", temp);
+								}
+							}
+							foreach (var st in gend)
+							{
+								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("gend"))
+								{
+									points.Add("gend", temp);
+								}
+							}
+							foreach (var st in bend)
+							{
+								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("bend"))
+								{
+									points.Add("bend", temp);
+								}
+							}
 
 							sprGameObj.transform.position = temp;
 							current++;
@@ -55,25 +120,8 @@ public class LevelCreation : MonoBehaviour
                     }
                 }
             }
-			XmlNodeList pointslist = xmlDoc.GetElementsByTagName("points");
-			foreach (XmlNode rowitem in pointslist) // levels itens nodes.
-			{
-				if (rowitem.Name == "row")
-				{
-					var str = rowitem.InnerText.Split(',');
-					var rowNum = Int32.Parse(rowitem.Attributes["num"].Value);
-					var current = 0;
-					foreach (var a in str)
-					{
-					
-						int aa = Int32.Parse(a);
-						current++;
-
-
-					}
-				}
-			}
         }
+		startReady = true;
     }
 
 	Texture2D[] createTextures ()

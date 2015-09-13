@@ -20,8 +20,21 @@ public class VirtualControls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		var touchCount = Input.touchCount;
+		touchControls ();
+		keyboardControls ();
+	}
 
+	float ScreenPercentageX ( int percentage  ){
+		return Screen.width / 100 * percentage;
+	}
+	
+	float ScreenPercentageY ( int percentage  ){
+		return Screen.height / 100 * percentage;
+	}
+
+	void touchControls() {
+		var touchCount = Input.touchCount;
+		
 		for (int j= 0 ; j < touchCount ; j++ ) {
 			Touch touch= Input.GetTouch(j);
 			
@@ -53,7 +66,7 @@ public class VirtualControls : MonoBehaviour {
 					// slide vert
 					moveMagnitudeY = move.y / Screen.height * speed;
 					GetComponent<Rigidbody2D> ().velocity = new Vector2(moveMagnitudeX,moveMagnitudeY);
-
+					
 				}
 				if(touch.fingerId == rightTouchId)
 				{
@@ -70,8 +83,8 @@ public class VirtualControls : MonoBehaviour {
 				{
 					rightTouchId = -100;
 					rotateMagnitude = 0;
-
-
+					
+					
 				}
 				if(touch.fingerId == leftTouchId)
 				{
@@ -85,11 +98,42 @@ public class VirtualControls : MonoBehaviour {
 		}
 	}
 
-	float ScreenPercentageX ( int percentage  ){
-		return Screen.width / 100 * percentage;
-	}
-	
-	float ScreenPercentageY ( int percentage  ){
-		return Screen.height / 100 * percentage;
+	void keyboardControls() 
+	{
+		var sp = speed / 5;
+		var vel = GetComponent<Rigidbody2D> ().velocity;
+		if (Input.GetKey ("w")) {
+			vel.y = sp;
+		}
+		if (Input.GetKey ("s")) {
+			vel.y = -sp;
+		} 
+		if (Input.GetKey ("a")) {
+			vel.x = -sp;	
+		}
+		if (Input.GetKey ("d")) {
+			vel.x = sp;
+		} 
+		if (Input.GetKeyUp ("w")) {
+			vel.y = 0;
+		}
+		if (Input.GetKeyUp ("s")) {
+			vel.y = 0;
+		}
+		if (Input.GetKeyUp ("a")) {
+			vel.x = 0;
+		}
+		if (Input.GetKeyUp ("d")) {
+			vel.x = 0;
+		}
+
+		GetComponent<Rigidbody2D> ().velocity = vel;
+
+		Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+		Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
+		lookPos = lookPos - transform.position;
+		float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
 	}
 }

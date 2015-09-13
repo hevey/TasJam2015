@@ -19,7 +19,7 @@ public class AstarAI : MonoBehaviour
     public float speed = 2;
 
     //The AI's speed per second
-    public float playerDetectionRadius = 5;
+    //public float playerDetectionRadius = 5;
 
     //The max distance from the AI to a waypoint for it to continue to the next waypoint
     public float nextWaypointDistance = 3;
@@ -35,6 +35,7 @@ public class AstarAI : MonoBehaviour
         seeker.StartPath(transform.position, target.position, OnPathComplete);
     }
 
+    //  Called when a path is found!
     public void OnPathComplete(Path p)
     {
         Debug.Log("Yay, we got a path back. Did it have an error? " + p.error);
@@ -55,12 +56,12 @@ public class AstarAI : MonoBehaviour
             return;
         }
 
-        //  radius check.
-        if (!(Vector3.Distance(transform.position, target.transform.position) < playerDetectionRadius))
-        {
-            Debug.Log("To far away to track.");
-            return;
-        }
+        //  radius check. (not needed anymore I think...)
+        //if (!(Vector3.Distance(transform.position, target.transform.position) < playerDetectionRadius))
+        //{
+        //    Debug.Log("To far away to track.");
+        //    return;
+        //}
         
         if (_currentWaypoint >= path.vectorPath.Count)
         {
@@ -71,8 +72,8 @@ public class AstarAI : MonoBehaviour
         //Direction to the next waypoint
         Vector3 dir = (path.vectorPath[_currentWaypoint] - transform.position).normalized;
         dir *= speed * Time.fixedDeltaTime;
-        this.gameObject.transform.Translate(dir);
-
+        //this.gameObject.transform.Translate(dir);
+        
         //Check if we are close enough to the next waypoint
         //If we are, proceed to follow the next waypoint
         if (Vector3.Distance(transform.position, path.vectorPath[_currentWaypoint]) < nextWaypointDistance)

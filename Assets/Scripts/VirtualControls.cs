@@ -111,6 +111,11 @@ public class VirtualControls : MonoBehaviour {
 		var sp = speed / 5;
 		var vel = GetComponent<Rigidbody2D> ().velocity;
 		bool keydown = false;
+
+		if (Input.GetKey ("escape")) {
+			Application.Quit ();
+		}
+
 		if (Input.GetKey ("w")) {
 			vel.y = sp;
 			if(!playing) {

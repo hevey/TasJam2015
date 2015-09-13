@@ -15,5 +15,15 @@ public class PlayerBehaviour : MonoBehaviour {
 			transform.position = levelCreation.points ["start"];
 			levelCreation.startReady = false;
 		}
+
+	}
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		//Debug.Log (other.collider.name);
+
+	}
+	void OnTriggerEnter2D(Collider2D other) 
+	{
+		//Debug.Log (other.name);
 	}
 }

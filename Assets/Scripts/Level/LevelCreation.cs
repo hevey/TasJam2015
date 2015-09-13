@@ -12,6 +12,10 @@ public class LevelCreation : MonoBehaviour
 	public Color FloorColour = Color.clear;
     private WallCreation wc = new WallCreation();
 	public bool startReady = false;
+	public bool gendReady = false;
+	public bool bendReady = false;
+	public Material mat;
+	public PhysicsMaterial2D pm2;
 	//List<Vector3> startPoints = new List<Vector3>();
 	//List<Vector3> goodEndPoints = new List<Vector3>();
 	//List<Vector3> badEndPoints = new List<Vector3>();
@@ -86,9 +90,12 @@ public class LevelCreation : MonoBehaviour
 							sprGameObj.AddComponent<SpriteRenderer>();
 							SpriteRenderer sprRenderer = sprGameObj.GetComponent<SpriteRenderer>();
 							sprRenderer.sprite = spr;
+							sprRenderer.material = mat;
+
 							if(aa > 0)
 							{
-								sprGameObj.AddComponent<PolygonCollider2D>();
+								var p = sprGameObj.AddComponent<PolygonCollider2D>();
+								p.sharedMaterial = null;
 							}
 							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum-4 * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
 							
@@ -103,14 +110,23 @@ public class LevelCreation : MonoBehaviour
 							{
 								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("gend"))
 								{
-									points.Add("gend", temp);
+									//points.Add("gend", temp);
+									var ge = sprGameObj.AddComponent<BoxCollider2D>();
+									ge.name = "gend";
+									sprGameObj.name = "gend";
+
+									ge.isTrigger = true;
 								}
 							}
 							foreach (var st in bend)
 							{
 								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("bend"))
 								{
-									points.Add("bend", temp);
+									//points.Add("bend", temp);
+									var be = sprGameObj.AddComponent<BoxCollider2D>();
+									sprGameObj.name = "bend";
+									be.name = "bend";
+									be.isTrigger = true;
 								}
 							}
 
@@ -122,7 +138,12 @@ public class LevelCreation : MonoBehaviour
             }
         }
 		startReady = true;
+
+
+
     }
+
+
 
 	Texture2D[] createTextures ()
     {

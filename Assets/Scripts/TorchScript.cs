@@ -16,7 +16,7 @@ public class TorchScript : MonoBehaviour
 
         Vector2 fwd = transform.TransformDirection(Vector2.up);
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, obj.position,100);
-        Debug.DrawLine(transform.position, obj.position, Color.green,100);
+        //Debug.DrawLine(transform.position, obj.position, Color.green,100);
         GameObject light = GameObject.FindGameObjectWithTag("spotlight");
 
 	    if (light != null)
@@ -29,9 +29,9 @@ public class TorchScript : MonoBehaviour
 	    }
         if (hitInfo.collider != null)
         {
-            Debug.Log("Testing");
-            Debug.Log(hitInfo.collider);
-            Debug.DrawRay(transform.position, obj.transform.position,Color.red);
+            //Debug.Log("Testing");
+//            Debug.Log(hitInfo.collider);
+  //          Debug.DrawRay(transform.position, obj.transform.position,Color.red);
         }
 
 

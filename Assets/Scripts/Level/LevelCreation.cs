@@ -92,10 +92,8 @@ public class LevelCreation : MonoBehaviour
 							if(aa > 0)
 							{
 								sprGameObj = getCollider(sprGameObj, aa);
-								//var p = sprGameObj.AddComponent<PolygonCollider2D>();
-								//p.sharedMaterial = null;
 							}
-							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum-4 * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
+							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
 							
 							foreach (var st in start)
 							{
@@ -108,7 +106,7 @@ public class LevelCreation : MonoBehaviour
 							{
 								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("gend"))
 								{
-									//points.Add("gend", temp);
+									points.Add("gend", temp);
 									var ge = sprGameObj.AddComponent<BoxCollider2D>();
 									ge.name = "gend";
 									sprGameObj.name = "gend";
@@ -120,7 +118,7 @@ public class LevelCreation : MonoBehaviour
 							{
 								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("bend"))
 								{
-									//points.Add("bend", temp);
+									points.Add("bend", temp);
 									var be = sprGameObj.AddComponent<BoxCollider2D>();
 									sprGameObj.name = "bend";
 									be.name = "bend";

@@ -17,7 +17,7 @@ public class VirtualControls : MonoBehaviour {
 
 	private bool playing = false;
 	void Start () {
-		fs = new footsteps ();
+		fs = GetComponent<footsteps> ();
 		if (fs == null) {
 			Debug.Log("NOOOO");
 		}

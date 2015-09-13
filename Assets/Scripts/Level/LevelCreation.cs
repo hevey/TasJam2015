@@ -16,6 +16,7 @@ public class LevelCreation : MonoBehaviour
 	public bool bendReady = false;
 	public Material mat;
 	public PhysicsMaterial2D pm2;
+	private PlayVoices pv;
 	
 	public Dictionary<string,Vector3> points = new Dictionary<string,Vector3>();
     void Start()

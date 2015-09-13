@@ -5,8 +5,8 @@ public class pway : MonoBehaviour {
 
 	public string type;
 	public string audio;
-	public string row;
-	public string pos;
+	public int row;
+	public int pos;
 
 
 	public void playAudio() {

@@ -25,5 +25,11 @@ public class PlayerBehaviour : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) 
 	{
 		//Debug.Log (other.name);
+		if (other.name == "gend") {
+			Application.LoadLevel("Win");
+		}
+		else if (other.name == "bend") {
+			Application.LoadLevel("Lose");
+		}
 	}
 }

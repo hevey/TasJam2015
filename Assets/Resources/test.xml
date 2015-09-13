@@ -22,8 +22,24 @@
     <row num="1">6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,5,2,11,5</row>
 	</rows>
 	<points>
-		<start>8-2,3-4</start>
-		<gend>9-4,5-4</gend>
-		<bend>8-4,2-4</bend>
+		<start>15-02</start>
+		<gend>1-19</gend>
+		<bend>19-17</bend>
 	</points>
+	<waypoints>
+	 <point>G:2-15:YouAreAlmostThere</point>
+     <point>G:10-15:KeepGoing</point> 
+     <point>G:17-20:NoNoNo</point>
+     <point>G:15-07:GoRight</point>
+     <point>G:15-18:StopStopStop</point>
+     <point>G:14-08:KeepGoing</point>
+     <point>G:12-03:GoRight</point>
+     <point>B:2-15:HaHaHa</point>
+     <point>B:10-15:GoBack</point>
+     <point>B:17-20:YouAreAlmostThere</point>
+     <point>B:15-07:GoLeft</point>
+     <point>B:15-18:GoLeft</point>
+     <point>B:14-08:NoNoNo</point>
+     <point>B:12-03:StopStopStop</point>
+	</waypoints>
 </maze>

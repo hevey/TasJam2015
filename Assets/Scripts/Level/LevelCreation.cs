@@ -17,6 +17,7 @@ public class LevelCreation : MonoBehaviour
 	public Material mat;
 	public PhysicsMaterial2D pm2;
 	private PlayVoices pv;
+	public List<pway> pwaylistman = new List<pway>();
 	
 	public Dictionary<string,Vector3> points = new Dictionary<string,Vector3>();
     void Start()
@@ -53,8 +54,13 @@ public class LevelCreation : MonoBehaviour
 					{
 						var inner = a.Split(':');
 						pway pw = (pway) ScriptableObject.CreateInstance("pway");
-
-
+						var po = inner[1].Split('-');
+						pw.type = inner[0];
+						pw.row = Int32.Parse(po[0]);
+						pw.pos = Int32.Parse(po[1]);
+						pw.audio = inner[2];
+						pw.nametouse = a;
+						pwaylistman.Add(pw);
 					}
 				}
 			}
@@ -118,14 +124,14 @@ public class LevelCreation : MonoBehaviour
 							
 							foreach (var st in start)
 							{
-								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("start"))
+								if(st.row == rowNum && st.pos == current && !points.ContainsKey("start"))
 								{
 									points.Add("start", temp);
 								}
 							}
 							foreach (var st in gend)
 							{
-								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("gend"))
+								if(st.row == rowNum && st.pos == current && !points.ContainsKey("gend"))
 								{
 									points.Add("gend", temp);
 									var ge = sprGameObj.AddComponent<BoxCollider2D>();
@@ -137,12 +143,22 @@ public class LevelCreation : MonoBehaviour
 							}
 							foreach (var st in bend)
 							{
-								if(st.row == rowNum && st.pos-5 == current && !points.ContainsKey("bend"))
+								if(st.row == rowNum && st.pos == current && !points.ContainsKey("bend"))
 								{
 									points.Add("bend", temp);
 									var be = sprGameObj.AddComponent<BoxCollider2D>();
 									sprGameObj.name = "bend";
 									be.name = "bend";
+									be.isTrigger = true;
+								}
+							}
+							foreach ( var ppp in pwaylistman)
+							{
+								if(ppp.row == rowNum && ppp.pos == current)
+								{
+									var be = sprGameObj.AddComponent<BoxCollider2D>();
+									sprGameObj.name = ppp.nametouse;
+									be.name = ppp.nametouse;
 									be.isTrigger = true;
 								}
 							}

@@ -13,9 +13,12 @@ public class VirtualControls : MonoBehaviour {
 	public float moveMagnitudeY = 0.0f;
 
 	public float rotateMagnitude = 0.0f;
-
+	private footsteps fs;
 	void Start () {
-	
+		fs = GetComponent<footsteps> ();
+		if (fs == null) {
+			Debug.LogError("NOOOO");
+		}
 	}
 	
 	// Update is called once per frame
@@ -45,6 +48,7 @@ public class VirtualControls : MonoBehaviour {
 					rightTouchId = touch.fingerId;
 					rightTouchPosition=touch.position;
 					rotateMagnitude = 0;
+					fs.play();
 				}
 				if(touch.position.x <= ScreenPercentageX(50)){
 					
@@ -66,7 +70,8 @@ public class VirtualControls : MonoBehaviour {
 					// slide vert
 					moveMagnitudeY = move.y / Screen.height * speed;
 					GetComponent<Rigidbody2D> ().velocity = new Vector2(moveMagnitudeX,moveMagnitudeY);
-					
+
+
 				}
 				if(touch.fingerId == rightTouchId)
 				{
@@ -92,6 +97,7 @@ public class VirtualControls : MonoBehaviour {
 					moveMagnitudeX = 0;
 					moveMagnitudeY = 0;
 					GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+					fs.stop();
 				}
 				
 			}
@@ -102,31 +108,60 @@ public class VirtualControls : MonoBehaviour {
 	{
 		var sp = speed / 5;
 		var vel = GetComponent<Rigidbody2D> ().velocity;
+		var playing = false;
+		var keydown = false;
 		if (Input.GetKey ("w")) {
 			vel.y = sp;
+			if(!playing) {
+				playing = true;
+				fs.play();
+			}
+			keydown = true;
 		}
 		if (Input.GetKey ("s")) {
 			vel.y = -sp;
+			if(!playing) {
+				playing = true;
+				fs.play();
+			}
+			keydown = true;
 		} 
 		if (Input.GetKey ("a")) {
 			vel.x = -sp;	
+			if(!playing) {
+				playing = true;
+				fs.play();
+			}
+			keydown = true;
 		}
 		if (Input.GetKey ("d")) {
 			vel.x = sp;
+			if(!playing) {
+				playing = true;
+				fs.play();
+			}
+			keydown = true;
 		} 
 		if (Input.GetKeyUp ("w")) {
 			vel.y = 0;
+			vel.x = 0;
 		}
 		if (Input.GetKeyUp ("s")) {
 			vel.y = 0;
+			vel.x = 0;
 		}
 		if (Input.GetKeyUp ("a")) {
+			vel.y = 0;
 			vel.x = 0;
 		}
 		if (Input.GetKeyUp ("d")) {
+			vel.y = 0;
 			vel.x = 0;
 		}
-
+		if (!keydown) {
+			playing = false;
+			fs.stop ();
+		}
 		GetComponent<Rigidbody2D> ().velocity = vel;
 
 		Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);

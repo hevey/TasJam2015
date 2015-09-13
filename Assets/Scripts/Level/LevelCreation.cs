@@ -16,10 +16,7 @@ public class LevelCreation : MonoBehaviour
 	public bool bendReady = false;
 	public Material mat;
 	public PhysicsMaterial2D pm2;
-	//List<Vector3> startPoints = new List<Vector3>();
-	//List<Vector3> goodEndPoints = new List<Vector3>();
-	//List<Vector3> badEndPoints = new List<Vector3>();
-    // Use this for initialization
+	
 	public Dictionary<string,Vector3> points = new Dictionary<string,Vector3>();
     void Start()
     {
@@ -94,8 +91,9 @@ public class LevelCreation : MonoBehaviour
 
 							if(aa > 0)
 							{
-								var p = sprGameObj.AddComponent<PolygonCollider2D>();
-								p.sharedMaterial = null;
+								sprGameObj = getCollider(sprGameObj, aa);
+								//var p = sprGameObj.AddComponent<PolygonCollider2D>();
+								//p.sharedMaterial = null;
 							}
 							Vector3 temp = new Vector3((current * sprGameObj.GetComponent<Renderer>().bounds.size.x), rowNum-4 * sprGameObj.GetComponent<Renderer>().bounds.size.y, 0);
 							
@@ -170,4 +168,184 @@ public class LevelCreation : MonoBehaviour
 
 		return texs;
     }
+
+	GameObject getCollider(GameObject go, int element)
+	{
+		switch (element) {
+		case 0:
+			return createBlankTrigger(go);
+			break;
+		case 1:
+			return createEdgeTopTrigger(go);
+			break;
+		case 2:
+			return createEdgeBottomTrigger(go);
+			break;
+		case 3:
+			return createEdgeLeftTrigger(go);
+			break;
+		case 4:
+			return createEdgeRightTrigger(go);
+			break;
+		case 5:
+			return createEdgeRightBottomTrigger(go);
+			break;
+		case 6:
+			return createEdgeLeftBottomTrigger(go);
+			break;
+		case 7:
+			return createEdgeLeftTopTrigger(go);
+			break;
+		case 8:
+			return createEdgeRightTopTrigger(go);
+			break;
+		case 9:
+			return createEdgeTopRightBottomTrigger(go);
+			break;
+		case 10:
+			return createEdgeRightBottomLeftTrigger(go);
+			break;
+		case 11:
+			return createEdgeBottomLeftTopTrigger(go);
+			break;
+		case 12:
+			return createEdgeLeftTopRightTrigger(go);
+			break;
+		case 13:
+			return createEdgeRightBottomInternalTrigger(go);
+			break;
+		case 14:
+			return createEdgeLeftBottomInternalTrigger(go);
+			break;
+		case 15:
+			return createEdgeRightTopInternalTrigger(go);
+			break;
+		case 16:
+			return createEdgeLeftTopInternalTrigger(go);
+			break;
+		case 17:
+			return createLeftRightTrigger(go);
+			break;
+		case 18:
+			return createTopBottomTrigger(go);
+			break;
+		default:
+			throw new Exception("No collider defined");
+		}
+	}
+
+	GameObject createBlankTrigger(GameObject go) {
+		return go;
+	}
+	GameObject createEdgeTopTrigger(GameObject go) {
+		var box = go.AddComponent<BoxCollider2D> ();
+		var size = go.GetComponent<Renderer> ().bounds.size;
+		size.y /= 10;
+		box.size = size;
+		box.offset = new Vector2 (-(box.size.x / 2), -(box.size.y / 2));
+		return go;
+	}
+	GameObject createEdgeBottomTrigger(GameObject go) {
+		var box = go.AddComponent<BoxCollider2D> ();
+		var size = go.GetComponent<Renderer> ().bounds.size;
+		var normalsize = go.GetComponent<Renderer> ().bounds.size;
+		size.y /= 10;
+		box.size = size;
+
+		box.offset = new Vector2 (-(box.size.x / 2),-normalsize.y+((box.size.y / 2)));
+		return go;
+	}
+	GameObject createEdgeLeftTrigger(GameObject go) {
+		var box = go.AddComponent<BoxCollider2D> ();
+		var size = go.GetComponent<Renderer> ().bounds.size;
+		var normalsize = go.GetComponent<Renderer> ().bounds.size;
+		size.x /= 10;
+		box.size = size;
+		box.offset = new Vector2 (-normalsize.x+(box.size.x / 2), -(box.size.y / 2));
+		return go;
+	}
+	GameObject createEdgeRightTrigger(GameObject go) {
+		var box = go.AddComponent<BoxCollider2D> ();
+		var size = go.GetComponent<Renderer> ().bounds.size;
+		size.x /= 10;
+		box.size = size;
+		box.offset = new Vector2 (-(box.size.x / 2), -(box.size.y / 2));
+		return go;
+	}
+	GameObject createEdgeRightBottomTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeLeftBottomTrigger(GameObject go) {
+		go = createEdgeLeftTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeLeftTopTrigger(GameObject go) {
+		go = createEdgeLeftTrigger (go);
+		go = createEdgeTopTrigger (go);
+		return go;
+	}
+	GameObject createEdgeRightTopTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeTopTrigger (go);
+		return go;
+	}
+	GameObject createEdgeTopRightBottomTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeTopTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeRightBottomLeftTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeLeftTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeBottomLeftTopTrigger(GameObject go) {
+		go = createEdgeLeftTrigger (go);
+		go = createEdgeTopTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeLeftTopRightTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeTopTrigger (go);
+		go = createEdgeLeftTrigger (go);
+		return go;
+	}
+	GameObject createEdgeRightBottomInternalTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeLeftBottomInternalTrigger(GameObject go) {
+		go = createEdgeLeftTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+	GameObject createEdgeRightTopInternalTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeTopTrigger (go);
+		return go;
+	}
+	GameObject createEdgeLeftTopInternalTrigger(GameObject go) {
+		go = createEdgeTopTrigger (go);
+		go = createEdgeLeftTrigger (go);
+		return go;
+	}
+	GameObject createLeftRightTrigger(GameObject go) {
+		go = createEdgeRightTrigger (go);
+		go = createEdgeLeftTrigger (go);
+		return go;
+	}
+	GameObject createTopBottomTrigger(GameObject go) {
+		go = createEdgeTopTrigger (go);
+		go = createEdgeBottomTrigger (go);
+		return go;
+	}
+
+
 }

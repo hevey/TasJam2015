@@ -14,10 +14,12 @@ public class VirtualControls : MonoBehaviour {
 
 	public float rotateMagnitude = 0.0f;
 	private footsteps fs;
+
+	private bool playing = false;
 	void Start () {
-		fs = GetComponent<footsteps> ();
+		fs = new footsteps ();
 		if (fs == null) {
-			Debug.LogError("NOOOO");
+			Debug.Log("NOOOO");
 		}
 	}
 	
@@ -108,11 +110,11 @@ public class VirtualControls : MonoBehaviour {
 	{
 		var sp = speed / 5;
 		var vel = GetComponent<Rigidbody2D> ().velocity;
-		var playing = false;
-		var keydown = false;
+		bool keydown = false;
 		if (Input.GetKey ("w")) {
 			vel.y = sp;
 			if(!playing) {
+				Debug.Log("Play");
 				playing = true;
 				fs.play();
 			}

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class pway : MonoBehaviour {
+public class pway : ScriptableObject {
 
 	public string type;
 	public string audio;
 	public int row;
 	public int pos;
+	public string nametouse;
 
 
 	public void playAudio() {

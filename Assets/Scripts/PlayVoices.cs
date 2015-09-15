@@ -29,83 +29,131 @@ public class PlayVoices : MonoBehaviour {
 
     public void PlayBadGoLeft()
     {
-       PlayFromPath(badGoLeft);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badGoLeft;
+		audioSource.Play();
+       
     }
 
     public void PlayBadGoRight()
     {
-        PlayFromPath(badGoRight);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badGoRight;
+		audioSource.Play();
+        
     }
 
     public void PlayBadKeepGoing()
     {
-        PlayFromPath(badKeepGoing);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badKeepGoing;
+		audioSource.Play();
+
     }
 
     public void PlayBadStopStopStop()
     {
-        PlayFromPath(badStopStopStop);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badStopStopStop;
+		audioSource.Play();
+
     }
 
     public void PlayBadNoNoNo()
     {
-        PlayFromPath(badNoNoNo);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badNoNoNo;
+		audioSource.Play();
+
     }
 
     public void PlayBadHaha()
     {
-        PlayFromPath(badHaha);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badHaha;
+		audioSource.Play();
+
     }
 
     public void PlayBadGoBack()
     {
-        PlayFromPath(badGoBack);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badGoBack;
+		audioSource.Play();
+
     }
 
     public void PlayBadComeThisWay()
     {
-        PlayFromPath(badComeThisWay);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("bvoice").GetComponent<AudioSource> ();
+		audioSource.clip = badComeThisWay;
+		audioSource.Play();
+
     }
     
     public void PlayGoodGoLeft()
     {
-        GameObject.FindGameObjectWithTag("gvoice");
-        PlayFromPath(goodGoLeft);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodGoLeft;
+		audioSource.Play();
+
     }
 
     public void PlayGoodGoRight()
     {
-        PlayFromPath(goodGoRight);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodGoRight;
+		audioSource.Play();
+
     }
 
     public void PlayGoodKeepGoing()
     {
-        PlayFromPath(goodKeepGoing);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodKeepGoing;
+		audioSource.Play();
+
     }
 
     public void PlayGoodStopStopStop()
     {
-        PlayFromPath(goodStopStopStop);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodStopStopStop;
+		audioSource.Play();
+
     }
 
     public void PlayGoodNoNoNo()
     {
-        PlayFromPath(goodNoNoNo);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodNoNoNo;
+		audioSource.Play();
+
     }
 
     public void PlayGoodHaha()
     {
-        PlayFromPath(goodHaha);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodHaha;
+		audioSource.Play();
+
     }
 
     public void PlayGoodGoBack()
     {
-        PlayFromPath(goodGoBack);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodGoBack;
+		audioSource.Play();
+	
     }
 
     public void PlayGoodComeThisWay()
     {
-        PlayFromPath(goodComeThisWay);
+		AudioSource audioSource = GameObject.FindGameObjectWithTag("gvoice").GetComponent<AudioSource> ();
+		audioSource.clip = goodComeThisWay;
+		audioSource.Play();
+
+        
     }
     
     // Use this for initialization
